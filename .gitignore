@@ -1,0 +1,14 @@
+/MarketGaze
+/__pycache__
+/bin
+/include
+/lib
+/mg.qml
+/pyvenv.cfg
+/recipe_model_bk.py
+/recipe_model_bk_2.py
+/recipe_model_bk_3.py
+/recipe_model_test.py
+/test.py
+/world_dc_model_bk.py
+/lib64

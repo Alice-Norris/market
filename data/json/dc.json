@@ -1,0 +1,145 @@
+{
+  "Elemental": {
+    "id": 1,
+    "worlds": {
+      "Carbuncle": 45,
+      "Kujata": 49,
+      "Typhon": 50,
+      "Garuda": 58,
+      "Atomos": 68,
+      "Tonberry": 72,
+      "Aegis": 90,
+      "Gungnir": 94
+    }
+  },
+  "Gaia": {
+    "id": 2,
+    "worlds": {
+      "Alexander": 43,
+      "Fenrir": 46,
+      "Ultima": 51,
+      "Ifrit": 59,
+      "Bahamut": 69,
+      "Tiamat": 76,
+      "Durandal": 92,
+      "Ridill": 98
+    }
+  },
+  "Mana": {
+    "id": 3,
+    "worlds": {
+      "Asura": 23,
+      "Pandaemonium": 28,
+      "Anima": 44,
+      "Hades": 47,
+      "Ixion": 48,
+      "Titan": 61,
+      "Chocobo": 70,
+      "Masamune": 96
+    }
+  },
+  "Aether": {
+    "id": 4,
+    "worlds": {
+      "Jenova": 40,
+      "Faerie": 54,
+      "Siren": 57,
+      "Gilgamesh": 63,
+      "Midgardsormr": 65,
+      "Adamantoise": 73,
+      "Cactuar": 79,
+      "Sargatanas": 99
+    }
+  },
+  "Primal": {
+    "id": 5,
+    "worlds": {
+      "Famfrit": 35,
+      "Exodus": 53,
+      "Lamia": 55,
+      "Leviathan": 64,
+      "Ultros": 77,
+      "Behemoth": 78,
+      "Excalibur": 93,
+      "Hyperion": 95
+    }
+  },
+  "Chaos": {
+    "id": 6,
+    "worlds": {
+      "Omega": 39,
+      "Moogle": 71,
+      "Cerberus": 80,
+      "Louisoix": 83,
+      "Spriggan": 85,
+      "Ragnarok": 97,
+      "Sagittarius": 400,
+      "Phantom": 401
+    }
+  },
+  "Light": {
+    "id": 7,
+    "worlds": {
+      "Twintania": 33,
+      "Lich": 36,
+      "Zodiark": 42,
+      "Phoenix": 56,
+      "Odin": 66,
+      "Shiva": 67,
+      "Alpha": 402,
+      "Raiden": 403
+    }
+  },
+  "Crystal": {
+    "id": 8,
+    "worlds": {
+      "Brynhildr": 34,
+      "Mateus": 37,
+      "Zalera": 41,
+      "Diabolos": 62,
+      "Coeurl": 74,
+      "Malboro": 75,
+      "Goblin": 81,
+      "Balmung": 91
+    }
+  },
+  "Materia": {
+    "id": 9,
+    "worlds": {
+      "Ravana": 21,
+      "Bismarck": 22,
+      "Sephirot": 86,
+      "Sophia": 87,
+      "Zurvan": 88
+    }
+  },
+  "Meteor": {
+    "id": 10,
+    "worlds": {
+      "Belias": 24,
+      "Shinryu": 29,
+      "Unicorn": 30,
+      "Yojimbo": 31,
+      "Zeromus": 32,
+      "Valefor": 52,
+      "Ramuh": 60,
+      "Mandragora": 82
+    }
+  },
+  "Dynamis": {
+    "id": 11,
+    "worlds": {
+      "Marilith": 404,
+      "Seraph": 405,
+      "Halicarnassus": 406,
+      "Maduin": 407
+    }
+  },
+  "NA Cloud DC (Beta)": {
+    "id": 12,
+    "worlds": {
+      "Cloudtest01": 3000,
+      "Cloudtest02": 3001
+    }
+  }
+}
