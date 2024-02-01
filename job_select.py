@@ -40,7 +40,7 @@ class JobSelect(QFrame):
 class JobWidget(QFrame):
   def __init__(cls, parent, icon: QIcon):
     super().__init__(parent)
-    btn = QPushButton(icon, "", cls, checkable=True, iconSize=QSize(48, 48))
+    btn = QPushButton(icon, "", cls, checkable=True, iconSize=QSize(32, 32))
     cls.min_lvl = QSpinBox(cls, minimum=1, maximum=90, wrapping=True)
     cls.max_lvl = QSpinBox(cls, minimum=1, maximum=90, wrapping=True)
     cls.setLayout(QGridLayout(cls, spacing=0, contentsMargins=QMargins(0,0,0,0)))
