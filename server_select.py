@@ -40,19 +40,7 @@ class ServerSelect(QFrame):
     cls.mk_layout([dc_sel_lbl, cls.dc_sel, world_sel_lbl, cls.world_sel])
 
   def update_worlds(cls, new_index):
-    #cls.world_sel.setModel(world_model)
-    #cls.world_sel.setModel(cls.model)
-    
     if not cls.world_sel.isEnabled():
       cls.world_sel.setModel(cls.model)
       cls.world_sel.setEnabled(True)
     cls.world_sel.setModelColumn(new_index+1)
-
-  # def set_dcs(cls, new_index):
-  #   item = cls.model.item(new_index, 0)
-  #   worlds = item.takeColumn(0)
-  #   world_model = QStandardItemModel(0,0)
-  #   world_model.appendColumn(worlds)
-  #   world_sel = cls.findChild(QComboBox, "world_sel")
-  #   world_sel.setModel(world_model)
-  #   world_sel.setEnabled(True)

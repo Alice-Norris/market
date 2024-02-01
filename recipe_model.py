@@ -25,7 +25,7 @@ class RecipeModel(QAbstractItemModel):
     
   def load_data(cls):
     path = Path("./data/json/class_job.json")
-    
+
     with open(path) as file:
       cls.insert_jobs(load(file))
     
