@@ -21,8 +21,7 @@ class World:
   def __init__(cls, name, id, dc):
     cls.name, cls.id, cls.dc = name, id, dc
 
-
-class DcModel(QAbstractTableModel):
+class ServerModel(QAbstractTableModel):
   
   def __init__(cls):
     super().__init__()

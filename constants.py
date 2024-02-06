@@ -1,4 +1,9 @@
 from enum import StrEnum
+
+APPLICATION_DATA = {
+  "organization": "Aresu Nereru",
+  "application": "MarketGaze"
+}
 FILE_DIRS = {
   "json" : "./data/json/",
   "icon" : "./data/icons/"

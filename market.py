@@ -7,15 +7,8 @@ from sys import exit
 class MarketGaze(QApplication):
   def __init__(self):
     super().__init__([])
-    self.handler = DataHandler()
+    #self.handler = DataHandler()
     ui = AppWindow()
     ui.show()
-    #self.start()
     exit(self.exec())
-    #self.exit()
 
-  # def start(self):
-  #   self.ui.show_win()
-  
-  # def exit(self):
-  #   exit(self.exec())

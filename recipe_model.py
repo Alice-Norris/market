@@ -1,18 +1,28 @@
 from PyQt6.QtCore import QAbstractItemModel, QModelIndex
 from PyQt6.QtCore import Qt
-from enum import IntEnum
 from json import load
 from pathlib import Path
 from recipe_classes import Job, Recipe
 
 class RecipeModel(QAbstractItemModel):
-  def __init__(cls, parent=None):
+  def __init__(self, parent=None):
     super().__init__(parent)
-    cls.jobs = []
-    
-    cls.load_data()
+    self.jobs = []
+    self.load_data()
     x=1
 
+  def flags(self, index: QModelIndex):
+    if not index.parent().isValid():
+      return Qt.ItemFlag.ItemIsEnabled
+    
+    match index.column():
+      case 1:
+        return Qt.ItemFlag.ItemIsEnabled | Qt.ItemFlag.ItemIsSelectable
+      case 2:
+        return Qt.ItemFlag.ItemIsEnabled
+      case _:
+        return Qt.ItemFlag.NoItemFlags
+    
   def headerData(cls, section: int, orientation: Qt.Orientation, role: Qt.ItemDataRole):
     if role == Qt.ItemDataRole.DisplayRole and orientation == Qt.Orientation.Horizontal:
       match section:
@@ -100,20 +110,8 @@ class RecipeModel(QAbstractItemModel):
       return None
     
     if not index.parent().isValid():
-      job = index.internalPointer()
-      match role:
-        case Qt.ItemDataRole.DisplayRole:
-          return job.get_abbr()
-        case Qt.ItemDataRole.UserRole:
-          return job.get_id()
+      job: Job = index.internalPointer()
+      return job.data(role)
     else:
-      recipe = index.internalPointer()
-      match role:
-        case Qt.ItemDataRole.DisplayRole:
-          match index.column():
-            case 1:
-              return recipe.get_name()
-            case 2:
-              return recipe.get_lvl()
-        case Qt.ItemDataRole.UserRole:
-          return recipe.get_id()
+      recipe: Recipe = index.internalPointer()
+      return recipe.data(index.column(), role)

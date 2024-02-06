@@ -10,8 +10,7 @@ class Search(QFrame):
 
   def mk_widgets(cls):
     cls.btn = QPushButton("Search", cls)
-    cls.btn.show()
-    cls.btn.clicked.connect(cls.collect_search_data)
+    #cls.btn.clicked.connect(cls.collect_search_data)
     cls.layout.addWidget(cls.btn)
 
   def collect_search_data(cls):
