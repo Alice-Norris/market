@@ -1,4 +1,23 @@
-from PyQt6.QtCore import Qt
+from PySide6.QtCore import Qt
+
+class Dc:
+  def __init__(cls, name, id, worlds):
+    cls.name, cls.id = name, id
+    cls.worlds = [World(*world, cls) for world in worlds.items()]
+
+  def numWorlds(cls):
+    return len(cls.worlds)
+  
+  def getWorld(cls, world_index):
+    world = cls.worlds[world_index]
+    return world
+  
+  def appendWorld(cls, world:'World'):
+    cls.worlds.append(world)
+
+class World:
+  def __init__(cls, name, id, dc):
+    cls.name, cls.id, cls.dc = name, id, dc
 
 class Job:
   def __init__(cls, abbr, id):
@@ -22,8 +41,7 @@ class Job:
         return cls.id
       case _:
         return None
-
-
+      
 class Recipe:
   def __init__(cls, name, lvl, id, job):
     cls.name, cls.lvl, cls.id, cls.job = name, lvl, id, job

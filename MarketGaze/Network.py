@@ -1,11 +1,11 @@
-from PyQt6.QtNetwork import QNetworkAccessManager, QNetworkRequest, QNetworkReply
-from PyQt6.QtCore import QJsonDocument
-from PyQt6.QtCore import QUrl, pyqtSignal
+from PySide6.QtNetwork import QNetworkAccessManager, QNetworkRequest, QNetworkReply
+from PySide6.QtCore import QJsonDocument
+from PySide6.QtCore import QUrl, Signal
 
 # TODO: HTTP Error handling
 # TODO: Add warning if unresolved items in responses
 class MarketRequest(QNetworkAccessManager):
-  sendParams = pyqtSignal()
+  sendParams = Signal()
   def __init__(self, parent):
     super().__init__(parent)
     #self.setUrl(QUrl("https://"))

@@ -1,63 +1,39 @@
-from PyQt6.QtWidgets import QMainWindow
-from PyQt6.QtCore import QRect, QSettings, QCoreApplication, QPoint, QSize, pyqtSignal
-from cfg_dialog import ConfigDialog
-from marketsearch import MarketSearch
-from toolbar import Toolbar
-from sys import exit
+from PySide6.QtWidgets import QMainWindow, QApplication
+from PySide6.QtGui import QActionEvent
+from PySide6.QtCore import QPoint, QSettings, QSize, QEvent, Qt, Slot, Signal
+from MarketGaze.Toolbar import Toolbar
+from MarketGaze.MainWidget import MainWidget
+from MarketGaze.ConfigDialog import ConfigDialog
+from MarketGaze.ConfigHandler import ConfigHandler
+from MarketGaze.MarketEvent import MarketEvent
 
 class AppWindow(QMainWindow):
-  settings = None
-  dc_only_mode = pyqtSignal(bool)
-  consider_history = pyqtSignal(bool)
+  dc_only_mode = Signal(bool, name="DcOnlyMode")
+  consider_history = Signal(bool, name="ConsiderHistory")
 
   def __init__(self):
-    super().__init__()
-    QCoreApplication.setApplicationName("MarketGaze")
-    QCoreApplication.setOrganizationName("Aresu Nereru")
-    self.settings = QSettings(self)
-    self.cfg_dialog = ConfigDialog(self)
-    self.addToolBar(Toolbar(self))
-    self.setWindowTitle("MarketGaze")
-    self.setCentralWidget(MarketSearch(self))
-    self.read_settings()
+    super().__init__(objectName="MainWindow")
+    self.handler = ConfigHandler(self)
+    toolbar = Toolbar(self)
+    widget = MainWidget(self)
+    self.addToolBar(toolbar)
+    self.setCentralWidget(widget)
+    self.init_win()
+
+  def init_win(self):
+    settings = QSettings()
+    self.move(settings.value("AppWindow/Position"))
+    self.resize(settings.value("AppWindow/Size"))
+
+  @Slot()
+  def help_mode(self):
+    pass
   
-  def calc_win_geometry(self):
-    cent = self.screen().geometry().center()
-    size = self.screen().availableSize()
-    half_h = size.height() // 2
-    half_w = size.width() // 2
-    quart_x = cent.x() // 2
-    quart_y = cent.y() // 2
-    return (QPoint(quart_x, quart_y), QSize(half_h, half_w))
-
-  def read_settings(cls):
-    if cls.settings.contains("AppWindow"):
-      cls.settings.beginGroup("AppWindow")
-    
-      position: QPoint = cls.settings.value("position")
-      size: QSize = cls.settings.value("size")
-    
-      cls.settings.endGroup()
-
-      cls.move(position)
-      cls.resize(size)
-
-    else:
-      cls.write_settings  
-
-  def write_settings(cls):
-    pos, size = cls.calc_win_geometry()
-
-    cls.settings.beginGroup("AppWindow")
-
-    cls.settings.setValue("position", pos)
-    cls.settings.setValue("size", size)
-
-    cls.settings.endGroup()
-
-  def cfg_update(cls, name, val):
-    match name:
-      case "dc_only":
-        cls.dc_only_mode.emit(val)
-      case "consider_history":
-        cls.consider_history.emit(val)
+  @Slot()
+  def show_cfg(self):
+    ConfigDialog(self).show()
+  
+  def event(self, event):
+    if event.type() == MarketEvent.Type.ConfigChanged.value:
+      return True
+    return super().event(event)

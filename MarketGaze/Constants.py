@@ -1,5 +1,5 @@
-from enum import StrEnum
-
+from enum import StrEnum, IntEnum, Enum
+from PySide6.QtCore import QEvent
 APPLICATION_DATA = {
   "organization": "Aresu Nereru",
   "application": "MarketGaze"

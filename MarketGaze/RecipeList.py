@@ -1,18 +1,17 @@
-from PyQt6.QtWidgets import QTreeView, QHeaderView
-from PyQt6.QtCore import Qt, pyqtSignal
-from recipe_filter_model import RecipeFilterModel
-from recipe_model import RecipeModel
+from PySide6.QtWidgets import QTreeView, QHeaderView
+from PySide6.QtCore import Signal, Qt
+from MarketGaze.Model import RecipeFilterModel
 
 class RecipeList(QTreeView):
-  returnParams = pyqtSignal(list)
+  returnParams = Signal(list)
 
   def __init__(self, parent):
     super().__init__(parent)
     self.show()
-    data_model = RecipeModel(self)
-    filter_model = RecipeFilterModel(self, data_model)
+    #data_model = RecipeModel(self)
+    filter_model = RecipeFilterModel(self)
     self.setModel(filter_model)
-    #self.header().setSectionResizeMode(0, QHeaderView.ResizeMode.ResizeToContents)
+    self.header().setSectionResizeMode(0, QHeaderView.ResizeMode.ResizeToContents)
     self.header().setSectionResizeMode(1, QHeaderView.ResizeMode.Stretch)
     self.header().setSectionResizeMode(2, QHeaderView.ResizeMode.ResizeToContents)
     self.header().setStretchLastSection(False)

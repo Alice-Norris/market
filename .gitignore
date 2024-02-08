@@ -1,4 +1,3 @@
-/MarketGaze
 /__pycache__
 /bin
 /include
@@ -13,3 +12,5 @@
 /world_dc_model_bk.py
 /lib64
 /trash
+/.venv
+/MarketGaze/__pycache__
