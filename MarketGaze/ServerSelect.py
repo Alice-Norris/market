@@ -11,11 +11,7 @@ class ServerSelect(QWidget):
   def __init__(self, parent):
     super().__init__(parent, objectName="ServerSelect")
     self.model = ServerModel()
-
-    layout = QHBoxLayout()
-    layout.setAlignment(Qt.AlignmentFlag.AlignHCenter)
-    self.setLayout(layout)
-    
+    self.setLayout(QHBoxLayout(Alignment=Qt.AlignmentFlag.AlignHCenter))
     self.mk_widgets()
   
   # creates widgets

@@ -37,9 +37,9 @@ class JobWidget(QWidget):
     self.data["max"] = val
     self.update.emit(self.objectName(), self.data)
   
-  def job_toggled(cls, checked: bool):
-    cls.data["select"] = not cls.data["select"]
-    cls.update.emit(cls.objectName(), cls.data)
+  def job_toggled(self, checked: bool):
+    self.data["select"] = not self.data["select"]
+    self.update.emit(self.objectName(), self.data)
 
 
 class JobSelect(QWidget):
@@ -48,23 +48,13 @@ class JobSelect(QWidget):
   def __init__(self, parent):
     super().__init__(parent)
     self.setObjectName("JobSelect")
-    self.setLayout(QHBoxLayout(self))
-    self.layout().setSpacing(0)
-    #self.setFrameShape(self.Shape.NoFrame)
-    #self.setLineWidth(0)
-    self.model = JobModel()
+    self.setLayout(QHBoxLayout(self, spacing=0, contentsMargins=QMargins(0,0,0,0)))
     self.mk_widgets()
-    self.show()
 
-  # load job list
-  def get_jobs(self):
-    with open("./data/json/class_job.json") as file:
-      return load(file)
-    
   # creates a checkable button for each job.
   def mk_widgets(self):
-    jobs = self.get_jobs()
-    for index, item in enumerate(jobs.items()):
+    jobs = load(open("./data/json/class_job.json"))
+    for item in jobs.items():
         icon = QIcon("data/icons/" + item[0] + ".png")
         job_w = JobWidget(self, item[0], icon)
         job_w.update.connect(self.update_job_sel)
