@@ -22,18 +22,9 @@ class MainWidget(QWidget):
     # Creating widgets
     mr = MarketRequest(self)
     server_select = ServerSelect(self)
-    #self.ui_update.connect(server_select.toggle_dc_mode)
     recipe_list = RecipeList(self)
     job_select = JobSelect(self)
     output = ResultDisplay(self)
-    
-    # Forming connections
-    #mr.sendParams.connect(server_select.get_selected)
-    mr.sendParams.connect(recipe_list.get_selected)
-    
-    #server_select.returnParams.connect(mr.set_server)
-    
-    recipe_list.returnParams.connect(mr.set_ids)
     
     job_select.sortUpdate.connect(recipe_list.receive_sort_update)
     

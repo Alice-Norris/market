@@ -11,6 +11,19 @@ class ConfigHandler(QObject):
       "DcOnly" : False,
       "ConsiderHistory" : False,
       "EnableLogging" : False
+    },
+    "JobSelect" : {
+      "ALC": {"min": 1, "max": 1, "select": False},
+      "ARM": {"min": 1, "max": 1, "select": False},    
+      "BSM": {"min": 1, "max": 1, "select": False},
+      "BTN": {"min": 1, "max": 1, "select": False},
+      "CRP": {"min": 1, "max": 1, "select": False},
+      "CUL": {"min": 1, "max": 1, "select": False},
+      "FSH": {"min": 1, "max": 1, "select": False},
+      "GSM": {"min": 1, "max": 1, "select": False},
+      "LTW": {"min": 1, "max": 1, "select": False},
+      "MIN": {"min": 1, "max": 1, "select": False},
+      "WVR": {"min": 1, "max": 1, "select": False}      
     }
   }
 

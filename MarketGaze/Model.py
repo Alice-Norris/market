@@ -1,4 +1,4 @@
-from PySide6.QtCore import QAbstractTableModel, QModelIndex, Qt, QAbstractItemModel, QSortFilterProxyModel
+from PySide6.QtCore import QAbstractTableModel, QModelIndex, Qt, QAbstractItemModel, QSortFilterProxyModel, QSettings
 from pathlib import Path
 from json import load
 from MarketGaze.ModelClass import Dc, Job, Recipe, World
@@ -52,7 +52,8 @@ class ServerModel(QAbstractTableModel):
   def data(cls, index, role):
     col = index.column()
 
-    cls.dc_index = col  
+    if col > 0:
+      cls.dc_index = col  
 
     item = index.internalPointer()
     
@@ -177,19 +178,26 @@ class RecipeModel(QAbstractItemModel):
     
 class RecipeFilterModel(QSortFilterProxyModel):
 
-  def __init__(cls, parent):
+  def __init__(self, parent):
     super().__init__(parent)
-    cls.setSourceModel(RecipeModel())
-    cls.setupJobs()
+    self.jobs ={}
+    self.setSourceModel(RecipeModel())
+    self.setupJobs()
   
-  def setupJobs(cls):
-    src_model = cls.sourceModel()
-    top_lvl_rows = src_model.rowCount()
-    cls.jobs = {}
-    for row_num in range(0, top_lvl_rows):
-      job_index = src_model.index(row_num, 0)
-      job_name = src_model.data(job_index, Qt.ItemDataRole.DisplayRole)
-      cls.jobs.update({job_name : {"select": False, "min": 1, "max": 1}})
+  def setupJobs(self):
+    cfg = QSettings()
+    cfg.beginGroup("JobSelect")
+    jobs = cfg.allKeys()
+    for job in jobs:
+      self.jobs[job] = cfg.value(job)
+    cfg.endGroup()
+    # src_model = cls.sourceModel()
+    # top_lvl_rows = src_model.rowCount()
+    # cls.jobs = {}
+    # for row_num in range(0, top_lvl_rows):
+    #   job_index = src_model.index(row_num, 0)
+    #   job_name = src_model.data(job_index, Qt.ItemDataRole.DisplayRole)
+    #   cls.jobs.update({job_name : {"select": False, "min": 1, "max": 1}})
 
   def updateSort(self, name, sort_data):
     self.jobs[name] = sort_data

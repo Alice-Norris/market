@@ -10,14 +10,15 @@ class ServerSelect(QWidget):
 
   def __init__(self, parent):
     super().__init__(parent, objectName="ServerSelect")
-    self.model = ServerModel()
+    model = ServerModel()
     self.setLayout(QHBoxLayout(Alignment=Qt.AlignmentFlag.AlignHCenter))
-    self.mk_widgets()
+    
+    self.mk_widgets(model)
   
   # creates widgets
-  def mk_widgets(self):
+  def mk_widgets(self, model):
     # #datacenter selection
-    self.dc_sel = DcSelect(self, self.model)
+    self.dc_sel = DcSelect(self, model)
     self.layout().addWidget(self.dc_sel)
 
     # Setting up datacenter selection label
@@ -26,7 +27,7 @@ class ServerSelect(QWidget):
     self.layout().insertWidget(0, dc_sel_lbl)
 
     #make world selection
-    self.world_sel = WorldSelect(self, self.model)
+    self.world_sel = WorldSelect(self, model)
     self.parent().ui_update.connect(self.world_sel.toggle_dc_mode)
     self.layout().addWidget(self.world_sel)
 
@@ -53,12 +54,14 @@ class DcSelect(QComboBox):
 # Selects the specific world to search
 class WorldSelect(QComboBox):
   def __init__(self, parent, model: QAbstractTableModel):
+    super().__init__(parent, objectName="world_sel", placeholderText="--- Select ---")
     self.dc_only_mode = QSettings().value("Config/DcOnly", type=bool)
     self.dc_index = 1
     self.last_world_index = 0
-    super().__init__(parent, objectName="world_sel", placeholderText="--- Select ---")
+    self.setModelColumn(1)
+    self.setModel(model)
     self.setEnabled(False)
-    self.model = model
+    self.setCurrentIndex(-1)
   
   @Slot(int, name="UpdateWorlds", result=None)
   def update_worlds(self, new_index: int):
@@ -68,7 +71,6 @@ class WorldSelect(QComboBox):
     if not self.dc_only_mode:
       if not self.isEnabled():
         self.setEnabled(True)
-        self.setModel(self.model)
       self.setModelColumn(self.dc_index)
   
   @Slot(name="ToggleDcMode")

@@ -3,12 +3,9 @@ from PySide6.QtCore import Signal, Qt
 from MarketGaze.Model import RecipeFilterModel
 
 class RecipeList(QTreeView):
-  returnParams = Signal(list)
-
   def __init__(self, parent):
     super().__init__(parent)
     self.show()
-    #data_model = RecipeModel(self)
     filter_model = RecipeFilterModel(self)
     self.setModel(filter_model)
     self.header().setSectionResizeMode(0, QHeaderView.ResizeMode.ResizeToContents)
