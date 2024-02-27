@@ -1,5 +1,5 @@
 from PySide6.QtCore import QEvent
-from enum import IntEnum, Enum
+from enum import Enum
 
 class MarketEvent(QEvent):
   

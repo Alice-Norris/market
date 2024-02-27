@@ -1,6 +1,5 @@
 from PySide6.QtWidgets import QButtonGroup, QCheckBox, QDialog, QGridLayout, QHBoxLayout, QPushButton, QVBoxLayout, QApplication
-from PySide6.QtCore import Qt, QSettings, QEvent, Signal
-from MarketGaze.ConfigHandler import ConfigHandler
+from PySide6.QtCore import Qt, QSettings, Signal
 from MarketGaze.MarketEvent import MarketEvent
 
 class ConfigDialog(QDialog):

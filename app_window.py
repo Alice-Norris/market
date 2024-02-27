@@ -1,23 +1,18 @@
-from PySide6.QtWidgets import QMainWindow, QApplication
-from PySide6.QtGui import QActionEvent
-from PySide6.QtCore import QPoint, QSettings, QSize, QEvent, Qt, Slot, Signal
+from PySide6.QtWidgets import QMainWindow
+from PySide6.QtCore import QPoint, QSettings, Slot
 from MarketGaze.Toolbar import Toolbar
 from MarketGaze.MainWidget import MainWidget
 from MarketGaze.ConfigDialog import ConfigDialog
 from MarketGaze.ConfigHandler import ConfigHandler
-from MarketGaze.MarketEvent import MarketEvent
+from MarketGaze.DebugWindow import DebugWindow
+from MarketGaze.Network import MarketNetworkManager
 
 class AppWindow(QMainWindow):
-  dc_only_mode = Signal(bool, name="DcOnlyMode")
-  consider_history = Signal(bool, name="ConsiderHistory")
-
   def __init__(self):
     super().__init__(objectName="MainWindow")
     self.handler = ConfigHandler(self)
-    toolbar = Toolbar(self)
-    widget = MainWidget(self)
-    self.addToolBar(toolbar)
-    self.setCentralWidget(widget)
+    self.addToolBar(Toolbar(self))
+    self.setCentralWidget(MainWidget(self))
     self.init_win()
 
   def init_win(self):
@@ -32,8 +27,7 @@ class AppWindow(QMainWindow):
   @Slot()
   def show_cfg(self):
     ConfigDialog(self).show()
-  
-  def event(self, event):
-    if event.type() == MarketEvent.Type.ConfigChanged.value:
-      return True
-    return super().event(event)
+
+  @Slot()
+  def show_dbg(self):
+    DebugWindow(self).show()

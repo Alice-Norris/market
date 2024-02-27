@@ -24,6 +24,15 @@ class ConfigHandler(QObject):
       "LTW": {"min": 1, "max": 1, "select": False},
       "MIN": {"min": 1, "max": 1, "select": False},
       "WVR": {"min": 1, "max": 1, "select": False}      
+    },
+    "ServerSelect": {
+      "DcIndex": 0,
+      "WorldIndex": 0,
+      "WorldModelColumn": 1
+    },
+    "Search": {
+      "DcId": 0,
+      "WorldId": 0
     }
   }
 
@@ -45,7 +54,10 @@ class ConfigHandler(QObject):
       cfg.endGroup()
 
     cfg.sync()
-
+    print(cfg.value("ServerSelect/WorldColumn"))
+    print(cfg.value("ServerSelect/WorldIndex"))
+    print(cfg.value("ServerSelect/DcIndex"))
+    
   def get_cfg(self, grp_name: str, key_name: str=None):
     cfg = QSettings()
     output = {}

@@ -4,7 +4,7 @@ from json import dumps
 #Represents a given Boolean-level element of the ElasticSearch query.
 class BooleanLevel:
   def __init__(self, q_type: BoolQuery):
-    self.term_qs: [TermQuery] = []
+    self.term_qs: list[TermQuery] = []
     self.query_type = q_type
     self.bool_q = []
 
@@ -39,7 +39,7 @@ class BooleanLevel:
 # TODO: Add validation for parameters #
 # Equivalent to the "term" and "terms" queries for ElasticSearch
 class Terms:
-  def __init__(self, field: str, values: str or [str]):
+  def __init__(self, field: str, values: str | list[str]):
     self.field = field
     self.values = values
 
@@ -52,7 +52,7 @@ class Terms:
 
 # Equivalent to the "terms_set" queries for ElasticSearch
 class TermsSet:
-  def __init__(self, field: str, values: [str], req_matches=0):
+  def __init__(self, field: str, values: list[str], req_matches=0):
     if len(values) <= 1:
       return
     
@@ -98,7 +98,7 @@ class Exists:
 
 # Equivlanet to "ids" ElasticSearch query
 class IDs:
-  def __init__(self, ids: [int]):
+  def __init__(self, ids: list[int]):
     self.ids = ids
     for index, id in enumerate(self.ids):
       self.ids[index] = str(id)
@@ -137,8 +137,8 @@ class RequestBuilder:
     cls.curr_req: str = ""
 
     # Holds indexes, columns, sort, and boolean queries
-    cls.indexes: [str] = []
-    cls.columns: [str] = []
+    cls.indexes: list[str] = []
+    cls.columns: list[str] = []
     cls.sort: dict[str, SortType] = {}
     cls.size: int = 0
     cls.start_index: int = 0
@@ -152,7 +152,7 @@ class RequestBuilder:
     }
 
   # Backs up last request and clears the current one, then starts setting up new request
-  def new_req(cls, indexes:[str]=[], columns:[str]=[], size:int=0, start_index:int=0):
+  def new_req(cls, indexes: list[str]=[], columns: list[str]=[], size:int=0, start_index:int=0):
     cls.last_req = cls.curr_req
     cls.curr_req = ""
     cls.set_indexes_columns(indexes, columns)
@@ -175,7 +175,7 @@ class RequestBuilder:
   # Sets indexes or columns. Since extending with an empty list does nothing, 
   # Only checks for presence if extend is false, so that existing indexes
   # and columns are not replaced with an empty list
-  def set_indexes_columns(cls, indexes: [str] = [], columns: [str] = [], extend:bool=False):    
+  def set_indexes_columns(cls, indexes: list[str] = [], columns: list[str] = [], extend:bool=False):    
     match extend:
       case True:
         cls.indexes.extend(indexes)
